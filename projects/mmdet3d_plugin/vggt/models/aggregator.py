@@ -11,10 +11,10 @@ import torch.nn.functional as F
 from torch.utils.checkpoint import checkpoint
 from typing import Optional, Tuple, Union, List, Dict, Any
 
-from vggt.layers import PatchEmbed
-from vggt.layers.block import Block
-from vggt.layers.rope import RotaryPositionEmbedding2D, PositionGetter
-from vggt.layers.vision_transformer import vit_small, vit_base, vit_large, vit_giant2
+from projects.mmdet3d_plugin.vggt.layers import PatchEmbed
+from projects.mmdet3d_plugin.vggt.layers.block import Block
+from projects.mmdet3d_plugin.vggt.layers.rope import RotaryPositionEmbedding2D, PositionGetter
+from projects.mmdet3d_plugin.vggt.layers.vision_transformer import vit_small, vit_base, vit_large, vit_giant2
 
 logger = logging.getLogger(__name__)
 

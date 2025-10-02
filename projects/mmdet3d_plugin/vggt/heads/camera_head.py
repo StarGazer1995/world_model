@@ -11,9 +11,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from vggt.layers import Mlp
-from vggt.layers.block import Block
-from vggt.heads.head_act import activate_pose
+from projects.mmdet3d_plugin.vggt.layers import Mlp
+from projects.mmdet3d_plugin.vggt.layers.block import Block
+from projects.mmdet3d_plugin.vggt.heads.head_act import activate_pose
 
 
 class CameraHead(nn.Module):
