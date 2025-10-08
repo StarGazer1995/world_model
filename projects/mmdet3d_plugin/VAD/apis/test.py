@@ -71,6 +71,8 @@ def custom_multi_gpu_test(model, data_loader, tmpdir=None, gpu_collect=False):
                     bbox_result = result['bbox_results']
                     batch_size = len(result['bbox_results'])
                     bbox_results.extend(bbox_result)
+                print(f"'mask_results' in result.keys(): {'mask_results' in result.keys()}")
+                print(f"result['mask_results'] is not None: {result['mask_results'] is not None}")
                 if 'mask_results' in result.keys() and result['mask_results'] is not None:
                     mask_result = custom_encode_mask_results(result['mask_results'])
                     mask_results.extend(mask_result)

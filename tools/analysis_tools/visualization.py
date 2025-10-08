@@ -749,7 +749,8 @@ if __name__ == '__main__':
                            out_path=out_path)
         pred_path = osp.join(out_path, 'bev_pred.png')
         pred_img = cv2.imread(pred_path)
-        os.remove(pred_path)
+        new_name=osp.join(out_path, f"bev_pred_{sample_token_list[id]}.png")
+        os.rename(pred_path, new_name)
 
         sample_token = sample_token_list[id]
         sample = nusc.get('sample', sample_token)

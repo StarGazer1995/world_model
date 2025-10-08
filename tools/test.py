@@ -233,8 +233,11 @@ def main():
 
     if not distributed:
         # assert False
-        model = MMDataParallel(model, device_ids=[0])
-        outputs = single_gpu_test(model, data_loader, args.show, args.show_dir)
+        try:
+            model = MMDataParallel(model, device_ids=[0])
+            outputs = single_gpu_test(model, data_loader, args.show, args.show_dir)
+        except Exception as e:
+            print("Here is an exception: {}".format(e))
     else:
         model = MMDistributedDataParallel(
             model.cuda(),
@@ -274,21 +277,22 @@ def main():
             print(dataset.evaluate(outputs['bbox_results'], **eval_kwargs))
     
         # # # NOTE: record to json
-        # json_path = args.json_dir
-        # if not os.path.exists(json_path):
-        #     os.makedirs(json_path)
+        json_path = args.json_dir
+        json_path = "./"
+        if not os.path.exists(json_path):
+            os.makedirs(json_path)
         
-        # metric_all = []
-        # for res in outputs['bbox_results']:
-        #     for k in res['metric_results'].keys():
-        #         if type(res['metric_results'][k]) is np.ndarray:
-        #             res['metric_results'][k] = res['metric_results'][k].tolist()
-        #     metric_all.append(res['metric_results'])
+        metric_all = []
+        for res in outputs['bbox_results']:
+            for k in res['metric_results'].keys():
+                if type(res['metric_results'][k]) is np.ndarray:
+                    res['metric_results'][k] = res['metric_results'][k].tolist()
+            metric_all.append(res['metric_results'])
         
-        # print('start saving to json done')
-        # with open(json_path+'/metric_record.json', "w", encoding="utf-8") as f2:
-        #     json.dump(metric_all, f2, indent=4)
-        # print('save to json done')
+        print('start saving to json done')
+        with open(json_path+'/metric_record.json', "w", encoding="utf-8") as f2:
+            json.dump(metric_all, f2, indent=4)
+        print('save to json done')
 
 if __name__ == '__main__':
     main()
